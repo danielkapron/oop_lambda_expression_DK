@@ -11,6 +11,15 @@ public class Main {
         System.out.println(uc.getUserByEmailWithValidation("dk@gmail.com"));
         System.out.println(uc.getUserByEmailWithValidation("xx@gmail.com"));
 
+        uc.updateUserStatusById(1,false);
+        uc.updateUserStatusById(2, false);
+        System.out.println("Aktywni użytkownicy");
+        uc.getAllUsersWithStatus(true).forEach(System.out::println);
+
+        System.out.println(uc.updateUserRolerById(2, Role.ROLE_ADMIN));
+        System.out.println(uc.updateUserRolerById(3, Role.ROLE_ADMIN));
+        System.out.println(uc.updateUserRolerById(33, Role.ROLE_ADMIN));
+
     }
 
 }

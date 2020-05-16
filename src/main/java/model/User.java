@@ -6,6 +6,10 @@ package model;
 import java.time.LocalDateTime;
 
 public class User {
+    // składowe statyczne -> związane z klasą a nie z obiektem
+
+    private static int idCounter = 1;
+    private int userId;
 
     // prywatne pola klasowe
 
@@ -21,7 +25,8 @@ public class User {
     private Role role = Role.ROLE_USER;
 
     public User(){
-
+        this.userId = idCounter;
+        idCounter++;
     }
 
     public User(String name,
@@ -32,6 +37,8 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.userId = idCounter;
+        idCounter++;
     }
 
     // metoda -> napisowa reprezentacja obiektu
@@ -39,7 +46,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -48,6 +56,7 @@ public class User {
                 ", role=" + role +
                 '}';
     }
+
 
     // getters & setters - > metody dostępowe do pól klasowych
 

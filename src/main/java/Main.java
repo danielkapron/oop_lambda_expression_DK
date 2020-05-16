@@ -18,8 +18,13 @@ public class Main {
         u2.setRole(Role.ROLE_ADMIN);
         System.out.println("Nowa rola: " + u2.getRole());
         System.out.println(u2);
+        User u3 = new User("Daniel2",
+                "Kapron2",
+                "kapron.daniel2@gmail.com",
+                "dk2");
+        System.out.println(u3);
 
-
+        
 
     }
 

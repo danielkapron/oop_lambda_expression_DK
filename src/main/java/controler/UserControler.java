@@ -65,12 +65,23 @@ public class UserControler {
                 .filter(user -> user.getUserId() == userId)
                 .findFirst();
         if(userOpt.isPresent()){
+            // userOpt -> Optional<User>
+            // stąd userOpt.get() - > do wyciągnięcia danych z optionala
             userOpt.get().setRole(role);
             return true;
         }
         return false;
     }
 
+    public int countActiveUsers(){
+        return (int) UserData.users.stream().filter(User::isStatus).count();
+    }
+
+    public int countAdmins(){
+        return (int) UserData.users.stream().
+                filter(user -> user.getRole() == Role.ROLE_ADMIN)
+                .count();
+    }
 
 
 }

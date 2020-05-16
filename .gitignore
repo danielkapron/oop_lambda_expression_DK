@@ -1,0 +1,5 @@
+# wykluczenie pliku
+oop_lambda_expression_DK.iml
+# wykluczenie katalogu
+.idea/
+target/

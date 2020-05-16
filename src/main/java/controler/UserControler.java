@@ -4,6 +4,7 @@ import data.UserData;
 import model.Role;
 import model.User;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -83,6 +84,14 @@ public class UserControler {
                 .count();
     }
 
+    public List<User> getAllUsersOrderByRegistrationDateDesc(){
+        // Desc = descending, od największych do najmniejszych,
+        // w tym wypadku od najmłodszych do najstarszych
+        return UserData.users
+                .stream()
+                .sorted(Comparator.comparing(User::getRegistrationDate).reversed())
+                .collect(Collectors.toList());
+    }
 
 }
 

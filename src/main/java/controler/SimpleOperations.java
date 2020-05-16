@@ -33,6 +33,14 @@ public class SimpleOperations {
                 .collect(Collectors.joining(",")));
     }
 
+    public void getElementsGreaterThanAvgDesc(){
+        System.out.println("Elementy większe od średniej desc: " + Arrays.stream(numbers)
+                .filter(number -> number > getAvg())
+                .mapToObj(Integer::new)
+                .sorted(Comparator.reverseOrder())
+                .map(number -> number.toString())
+                .collect(Collectors.joining(",")));
+    }
 
 
     public static void main(String[] args) {
@@ -42,6 +50,8 @@ public class SimpleOperations {
         System.out.println("MIN: " + so.getMinValue());
         System.out.println("AVG: " + so.getAvg());
         so.getElementsGreaterThanAvg();
+        so.getElementsGreaterThanAvgDesc();
+
 
     }
 

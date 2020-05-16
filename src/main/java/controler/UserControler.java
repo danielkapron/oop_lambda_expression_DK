@@ -3,6 +3,8 @@ package controler;
 import data.UserData;
 import model.User;
 
+import java.util.Optional;
+
 // Klasa kontrolera impelemntuje metody obsługujące
 // żądania
 public class UserControler {
@@ -13,12 +15,23 @@ public class UserControler {
 //        }
 //        UserData.users.           //List<User>
 //                stream().         // Stream<User>
-//                forEach(user -> System.out.println(user));
+//   forEach(user -> System.out.println(user)); // operacja kończąca
         UserData.users.forEach(System.out::println); // uproszczona
     }
 
-    public User getUserById(int userId){
-        return 
+    public Optional<User> getUserByEmail(String searchEmail){
+        return UserData.users              //List<User>
+                .stream()                   // Stream<User>
+                .filter(user -> user.getEmail().equals(searchEmail)) // Stream<User>
+                .findFirst();             // Optional<User>
+    }
+
+    public String getUserByEmailWithValidation(String searchEmail){
+      Optional<User> userOpt = getUserByEmail(searchEmail);
+        if(userOpt.isPresent()){
+            return "Znaleziono użytkownika: " + userOpt.get().toString();
+        }
+        return "Nie znaleziono użytkownika o adresie: " + searchEmail;
     }
 
 

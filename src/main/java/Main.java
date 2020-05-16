@@ -24,6 +24,9 @@ public class Main {
         System.out.println("Liczba administratorów: " + uc.countAdmins());
 
         uc.getAllUsersOrderByRegistrationDateDesc().forEach(System.out::println);
+        System.out.println();
+        System.out.println();
+        uc.getAllAdminsOrderByEmailAsc().forEach(System.out::println);
     }
 
 }

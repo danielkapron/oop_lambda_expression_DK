@@ -93,5 +93,14 @@ public class UserControler {
                 .collect(Collectors.toList());
     }
 
+    public List<User> getAllAdminsOrderByEmailAsc(){
+        // Asc - ascending, czyli rosnąco
+        return UserData.users
+                .stream()
+                .filter(user -> user.getRole() == Role.ROLE_ADMIN)
+                .sorted(Comparator.comparing(User::getEmail))
+                .collect(Collectors.toList());
+    }
+
 }
 

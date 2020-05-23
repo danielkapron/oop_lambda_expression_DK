@@ -40,6 +40,22 @@ public class Main {
 
         System.out.println(subTask1.taskDescription);
 
+        //Polimorfizm
+
+        Task task1 = new SubTask();
+        System.out.println(task1.getClass().getName());
+        System.out.println(task1.getTaskName());
+        ((SubTask) task1).editSubTask("q", "q");
+        System.out.println(task1);
+
+        isStoppedBefore(new Task("x", LocalDate.now(), LocalDate.of(2020, 7, 7)), new Task("x", LocalDate.now(), LocalDate.of(2020, 9, 7)));
+
+
     }
+
+    public static boolean isStoppedBefore(Task task1, Task task2){
+        return task1.getStopDate().isBefore(task2.getStopDate());
+    }
+
 
 }

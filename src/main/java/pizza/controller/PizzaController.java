@@ -138,39 +138,49 @@ public class PizzaController {
         PizzaController pc = new PizzaController();
 
         System.out.println("Najtańsza ostra pizza, to: " + pc.findCheapestSpicy());
+        System.out.println();
 
         System.out.println(pc.getPizzaPrice(Pizza.MARGHERITA));
+        System.out.println();
 
         System.out.println("Najtańsza pizza: " + pc.findCheapest());
+        System.out.println();
 
         System.out.println("Najdroższa pizza wege: " + pc.findMostExpensiveVegetarian());
+        System.out.println();
 
         pc.iLikeMeat().forEach(pizza -> System.out.println(
                 pizza + " " +
                 pizza.getIngredients().size() + " " +
                 pizza.getIngredients().stream().filter(Ingredient::isMeat).count()
         ));
+        System.out.println();
 
         System.out.println("Pizze grupowane po cenie");
+        System.out.println();
 
     //    System.out.println(pc.groupByPrice());
         pc.groupByPrice()
                 .forEach((key, value) -> System.out.printf("%5.1f | %s \n", key, value));
+        System.out.println();
 
         System.out.println("Posortowana lista pizz");
         new TreeMap<>(pc.groupByPrice())
                 .forEach((key, value) -> System.out.printf("%5.1f | %s \n", key, value));
+        System.out.println();
 
         System.out.println("Pogrupowane po ilości składników ostrych");
         pc.groupByNumberOfSpicyIngredients()
                 .forEach((key, value) -> System.out.printf("%5d | %s \n", key, value));
+        System.out.println();
 
         System.out.println("Pogrupowane po ilości składników, ale tylko większe od 4");
         pc.groupByNumberOfIngredientsGreaterThan4()
                 .forEach((key, value) -> System.out.printf("%5d | %s \n", key, value));
-
+        System.out.println();
 
         System.out.println(pc.formatedMenu());
+        System.out.println();
 
         System.out.println(pc.getRandomPizza());
     }

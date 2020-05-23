@@ -1,6 +1,6 @@
-package data;
+package lambda_basic;
 
-import model.User;
+import lambda_basic.model.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;

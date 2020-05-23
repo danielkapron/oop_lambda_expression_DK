@@ -1,6 +1,7 @@
-import controler.UserControler;
-import model.Role;
-import model.User;
+package lambda_basic;
+
+import lambda_basic.UserControler;
+import lambda_basic.model.Role;
 
 import java.security.NoSuchAlgorithmException;
 

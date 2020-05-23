@@ -1,4 +1,4 @@
-package model;
+package lambda_basic.model;
 
 // Klasa modelu - determinuje strukturę danych w przepłwie informacji
 // w projekcie

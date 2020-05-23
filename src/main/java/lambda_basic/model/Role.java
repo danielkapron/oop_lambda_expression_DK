@@ -1,4 +1,4 @@
-package model;
+package lambda_basic.model;
 
 public enum Role {
 

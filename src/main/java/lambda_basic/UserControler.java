@@ -1,8 +1,8 @@
-package controler;
+package lambda_basic;
 
-import data.UserData;
-import model.Role;
-import model.User;
+import lambda_basic.UserData;
+import lambda_basic.model.Role;
+import lambda_basic.model.User;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

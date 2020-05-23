@@ -104,6 +104,24 @@ public class PizzaController {
                 );
     }
 
+    //o String formatedMenu() - metoda zwracająca string w postaci
+    // nazwa_pizzy: |  ostra lub łagodna  | mięsna lub wege |  cena | składnik1, składnik2, składnik3  |
+    // kolejne pizzę oddzielone znakiem nowej linii.
+
+    public String formatedMenu(){
+            return Arrays.stream(Pizza.values())
+                    .map(pizza -> String.format(
+                            "| %-15s | %-8s | %-8s | %5.2f zł | %-90s |",    // "-" to jest od lewej
+                            pizza.getName(),
+                            pizza.getIngredients().stream().anyMatch(ingredient -> ingredient.isSpicy()) ? "ostra" : "łagodna",
+                            pizza.getIngredients().stream().anyMatch(ingredient -> ingredient.isMeat()) ? "mięsna" : "wege",
+                            getPizzaPrice(pizza),
+                            pizza.getIngredients().stream().map(ingredient -> ingredient.getName()).collect(Collectors.joining(", "))
+                            )
+                        )
+                    .collect(Collectors.joining("\n"));     // \n - przejście do nowej linii
+    }
+
 
 
     public static void main(String[] args) {
@@ -140,6 +158,8 @@ public class PizzaController {
         pc.groupByNumberOfIngredientsGreaterThan4()
                 .forEach((key, value) -> System.out.printf("%5d | %s \n", key, value));
 
+
+        System.out.println(pc.formatedMenu());
     }
 
 

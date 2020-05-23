@@ -1,7 +1,16 @@
 package oop;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+
+// LOMBOK! - dodany przez Maven
+
+@NoArgsConstructor   // Implementuje konstruktur domyślny, bez argumentów
+@AllArgsConstructor // Implementuje konstruktur ze wszystkimi argumentami
+@Data               // Implementuje gettery, settery i toString, można zrobić osobno przez @Getter, @Setter, @ToString
 
 public class Task {
 
@@ -9,46 +18,6 @@ public class Task {
     private LocalDate startDate;
     private LocalDate stopDate;
 
-    public Task(String taskName, LocalDate startDate, LocalDate stopDate) {
-        this.taskName = taskName;
-        this.startDate = startDate;
-        this.stopDate = stopDate;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "taskName='" + taskName + '\'' +
-                ", startDate=" + startDate +
-                ", stopDate=" + stopDate +
-                '}';
-    }
-
-
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getStopDate() {
-        return stopDate;
-    }
-
-    public void setStopDate(LocalDate stopDate) {
-        this.stopDate = stopDate;
-    }
 
 
 

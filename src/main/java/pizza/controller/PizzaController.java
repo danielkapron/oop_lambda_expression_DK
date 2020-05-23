@@ -2,11 +2,12 @@ package pizza.controller;
 
 // klasa kontrolera - obsługa żądań i implementacja logiki biznesowej
 
+import com.sun.source.tree.Tree;
 import pizza.Ingredient;
 import pizza.Pizza;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PizzaController {
 
@@ -34,16 +35,59 @@ public class PizzaController {
     public Pizza findCheapest(){
         return Arrays.stream(Pizza.values())                                        // Stream <Pizza>
                 .sorted((Comparator.comparing(pizza -> getPizzaPrice(pizza))))      // Stream <Pizza>
-                .limit(1L)                                                          // Limit 1 (long)
                 .findFirst()                                                        // Optional <Pizza>
                 .get();                                                             // Pizza
     }
 
+    //o Pizza findCheapestSpicy() - metoda zwracająca najtańszą ostrą pizzę.
 
     public Pizza findCheapestSpicy(){
 
-        return null;
+        return Arrays.stream(Pizza.values())                                                          // Stream <Pizza>
+                .filter(pizza -> pizza.getIngredients().
+                        stream()
+                       .anyMatch(ingredient -> ingredient.isSpicy()))
+                        .min(Comparator.comparing(pizza -> getPizzaPrice(pizza)))
+                        .get();
+
     }
+
+    //o Pizza findMostExpensiveVegetarian() - metoda zwracająca najdroższą pizzę wegetariańską
+
+    public Pizza findMostExpensiveVegetarian(){
+
+        return Arrays.stream(Pizza.values())
+                .filter(pizza -> pizza.getIngredients()
+                        .stream()
+                .allMatch(ingredient -> ingredient.isMeat() == false))
+                    //    .noneMatch(Ingredient::isMeat))                       // Dwa sposoby
+                .max(Comparator.comparing(pizza -> getPizzaPrice(pizza)))      // Stream <Pizza>
+                .get();
+    }
+
+    //o List iLikeMeat() - metoda zwracająca same pizzę mięsne, posortowane malejąco po liczbie składników mięsnych.
+
+    public List <Pizza> iLikeMeat(){
+        return Arrays.stream(Pizza.values())
+                .filter(pizza -> pizza.getIngredients()
+                .stream()
+                .anyMatch(Ingredient::isMeat))
+                .sorted(Comparator.comparing(pizza -> pizza.getIngredients()
+                        .stream()
+                        .filter(Ingredient::isMeat)
+                        .count()
+                        , Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+    }
+
+    //o Map groupByPrice() - metoda grupujące pizzę po cenie
+
+    public Map groupByPrice(){
+        return Arrays.stream(Pizza.values())
+                .collect(Collectors.groupingBy(pizza -> getPizzaPrice(pizza)));
+    }
+
+        // metoda grupująca pizze po liczbie składników ostrych
 
 
 
@@ -56,6 +100,23 @@ public class PizzaController {
         System.out.println(pc.getPizzaPrice(Pizza.MARGHERITA));
 
         System.out.println("Najtańsza pizza: " + pc.findCheapest());
+
+        System.out.println("Najdroższa pizza wege: " + pc.findMostExpensiveVegetarian());
+
+        pc.iLikeMeat().forEach(pizza -> System.out.println(
+                pizza + " " +
+                pizza.getIngredients().size() + " " +
+                pizza.getIngredients().stream().filter(Ingredient::isMeat).count()
+        ));
+
+        System.out.println("Pizze grupowane po cenie");
+    //    System.out.println(pc.groupByPrice());
+        pc.groupByPrice()
+                .forEach((key, value) -> System.out.printf("%5.1f | %s \n", key, value));
+        System.out.println("Posortowana lista pizz");
+        new TreeMap<>(pc.groupByPrice())
+                .forEach((key, value) -> System.out.printf("%5.1f | %s \n", key, value));
+
 
 
 

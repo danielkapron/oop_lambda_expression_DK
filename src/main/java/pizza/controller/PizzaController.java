@@ -108,19 +108,28 @@ public class PizzaController {
     // nazwa_pizzy: |  ostra lub łagodna  | mięsna lub wege |  cena | składnik1, składnik2, składnik3  |
     // kolejne pizzę oddzielone znakiem nowej linii.
 
+    // przecena na dowolną pizze przy każdym uruchomieniu jako pizza dnia
+    // zaznacz pizze * i obniż cene o 20%
+
+    public Pizza getRandomPizza(){
+        return Pizza.values()[new Random().nextInt(Pizza.values().length)];
+    }
+
     public String formatedMenu(){
+        Pizza pizzaOfDay = getRandomPizza();
             return Arrays.stream(Pizza.values())
                     .map(pizza -> String.format(
                             "| %-15s | %-8s | %-8s | %5.2f zł | %-90s |",    // "-" to jest od lewej
-                            pizza.getName(),
+                            pizza.equals(pizzaOfDay) ? pizza.getName() + "*" : pizza.getName(),
                             pizza.getIngredients().stream().anyMatch(ingredient -> ingredient.isSpicy()) ? "ostra" : "łagodna",
                             pizza.getIngredients().stream().anyMatch(ingredient -> ingredient.isMeat()) ? "mięsna" : "wege",
-                            getPizzaPrice(pizza),
+                            pizza.equals(pizzaOfDay) ? getPizzaPrice(pizza)*0.8 : getPizzaPrice(pizza),
                             pizza.getIngredients().stream().map(ingredient -> ingredient.getName()).collect(Collectors.joining(", "))
                             )
                         )
                     .collect(Collectors.joining("\n"));     // \n - przejście do nowej linii
     }
+
 
 
 
@@ -143,9 +152,11 @@ public class PizzaController {
         ));
 
         System.out.println("Pizze grupowane po cenie");
+
     //    System.out.println(pc.groupByPrice());
         pc.groupByPrice()
                 .forEach((key, value) -> System.out.printf("%5.1f | %s \n", key, value));
+
         System.out.println("Posortowana lista pizz");
         new TreeMap<>(pc.groupByPrice())
                 .forEach((key, value) -> System.out.printf("%5.1f | %s \n", key, value));
@@ -160,6 +171,8 @@ public class PizzaController {
 
 
         System.out.println(pc.formatedMenu());
+
+        System.out.println(pc.getRandomPizza());
     }
 
 

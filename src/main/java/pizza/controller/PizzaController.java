@@ -89,6 +89,21 @@ public class PizzaController {
 
         // metoda grupująca pizze po liczbie składników ostrych
 
+    public TreeMap<Long, List<Pizza>> groupByNumberOfSpicyIngredients(){
+        return new TreeMap<Long, List<Pizza>>(Arrays.stream(Pizza.values())
+               .collect(Collectors.groupingBy(pizza -> pizza.getIngredients()
+              .stream().filter(Ingredient::isSpicy).count())));
+    }
+
+    // grupowanie po ilosci składnków ale zwroc tylko te ktore pmaja ich wiecej niz 4
+
+    public TreeMap<Integer, List<Pizza>> groupByNumberOfIngredientsGreaterThan4(){
+        return new TreeMap<Integer, List<Pizza>>(Arrays.stream(Pizza.values())
+                .filter(pizza -> pizza.getIngredients().size() > 4 )    //  && pizza.getIngredients().size() < 7 ) - można dodać wyższą granice ;)
+                .collect(Collectors.groupingBy(pizza -> pizza.getIngredients().size()))
+                );
+    }
+
 
 
     public static void main(String[] args) {
@@ -117,13 +132,15 @@ public class PizzaController {
         new TreeMap<>(pc.groupByPrice())
                 .forEach((key, value) -> System.out.printf("%5.1f | %s \n", key, value));
 
+        System.out.println("Pogrupowane po ilości składników ostrych");
+        pc.groupByNumberOfSpicyIngredients()
+                .forEach((key, value) -> System.out.printf("%5d | %s \n", key, value));
 
-
+        System.out.println("Pogrupowane po ilości składników, ale tylko większe od 4");
+        pc.groupByNumberOfIngredientsGreaterThan4()
+                .forEach((key, value) -> System.out.printf("%5d | %s \n", key, value));
 
     }
-
-
-
 
 
 }
